@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import confetti from 'canvas-confetti';
-import { Search, Filter, Sparkles, CheckCircle2, AlertCircle, RefreshCw } from 'lucide-react';
+import { Search, Filter, RefreshCw } from 'lucide-react';
 import Navbar from './components/Navbar';
 import TaskInput from './components/TaskInput';
 import TaskItem from './components/TaskItem';
@@ -61,10 +61,10 @@ const App = () => {
   // Launch celebratory funky confetti
   const triggerConfetti = () => {
     confetti({
-      particleCount: 80,
-      spread: 70,
+      particleCount: 70,
+      spread: 60,
       origin: { y: 0.65 },
-      colors: ['#FF007A', '#00F0FF', '#FFE600', '#00FF66', '#A688FA'],
+      colors: ['#FEF08A', '#FFD6E0', '#BAE6FD', '#BBF7D0', '#DDD6FE'],
       disableForReducedMotion: true,
     });
   };
@@ -102,10 +102,10 @@ const App = () => {
           setTimeout(() => {
             playFanfare();
             confetti({
-              particleCount: 150,
-              spread: 100,
+              particleCount: 140,
+              spread: 90,
               origin: { y: 0.5 },
-              colors: ['#FF007A', '#00F0FF', '#FFE600', '#00FF66', '#A688FA'],
+              colors: ['#FEF08A', '#FFD6E0', '#BAE6FD', '#BBF7D0', '#DDD6FE'],
             });
           }, 350);
         }
@@ -117,7 +117,7 @@ const App = () => {
     });
   };
 
-  // 3. Delete Task (Yeet)
+  // 3. Delete Task (Yeet / Shred)
   const handleDeleteTask = (taskId) => {
     playYeet();
     setTasks((prev) => prev.filter((t) => t.id !== taskId));
@@ -150,12 +150,10 @@ const App = () => {
   // Filter tasks based on search, status, priority, category
   const filteredTasks = useMemo(() => {
     return tasks.filter((task) => {
-      // Search matching
       const matchesSearch = task.title
         .toLowerCase()
         .includes(searchQuery.toLowerCase().trim());
 
-      // Status matching
       const matchesStatus =
         statusFilter === 'all'
           ? true
@@ -163,11 +161,9 @@ const App = () => {
           ? task.completed
           : !task.completed;
 
-      // Priority matching
       const matchesPriority =
         priorityFilter === 'all' ? true : task.priority === priorityFilter;
 
-      // Category matching
       const matchesCategory =
         categoryFilter === 'all' ? true : task.category === categoryFilter;
 
@@ -194,25 +190,25 @@ const App = () => {
           {/* Add Task Input Component */}
           <TaskInput onAddTask={handleAddTask} />
 
-          {/* Search & Filter Toolbar */}
-          <div className="bg-white neo-border neo-shadow rounded-2xl p-4 space-y-3">
+          {/* Search & Filter Desk Toolbar */}
+          <div className="paper-sheet rounded-2xl p-4 space-y-3 bg-[#FFFDF9]">
             {/* Search Input */}
             <div className="relative">
               <Search
                 size={18}
-                className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500"
+                className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8C7E72]"
               />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search tasks or search for excuses..."
-                className="w-full pl-10 pr-4 py-2 bg-zinc-50 border-2 border-black rounded-xl font-bold text-sm focus:outline-none focus:ring-2 focus:ring-[#FFE600]"
+                placeholder="Search notes or search for excuses..."
+                className="w-full pl-10 pr-4 py-2 bg-[#FBF7EE] border-2 border-[#2D241E] rounded-xl font-medium text-sm text-[#2D241E] focus:outline-none focus:ring-2 focus:ring-[#FEF08A] placeholder:text-[#A89D91]"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-black bg-zinc-200 px-1.5 py-0.5 rounded cursor-pointer hover:bg-black hover:text-white"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold bg-[#EAE4D9] text-[#2D241E] px-2 py-0.5 rounded cursor-pointer hover:bg-[#2D241E] hover:text-[#FFFDF9] font-hand"
                 >
                   CLEAR
                 </button>
@@ -220,12 +216,12 @@ const App = () => {
             </div>
 
             {/* Status Filter Tabs */}
-            <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-zinc-200">
+            <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-[#E8E1D5]">
               <div className="flex flex-wrap items-center gap-1.5">
                 {[
-                  { id: 'all', label: 'All Chaos', count: totalTasks },
+                  { id: 'all', label: 'All Doodles', count: totalTasks },
                   { id: 'active', label: 'In Progress ⏳', count: totalTasks - completedTasks },
-                  { id: 'completed', label: 'Conquered 🏆', count: completedTasks },
+                  { id: 'completed', label: 'Crossed Off 🏆', count: completedTasks },
                 ].map((tab) => {
                   const isActive = statusFilter === tab.id;
                   return (
@@ -235,16 +231,16 @@ const App = () => {
                         setStatusFilter(tab.id);
                         playClick();
                       }}
-                      className={`px-3 py-1 rounded-lg text-xs font-black transition-all cursor-pointer flex items-center gap-1.5 ${
+                      className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 font-hand ${
                         isActive
-                          ? 'bg-black text-white neo-shadow-sm scale-102'
-                          : 'bg-zinc-100 text-zinc-700 hover:bg-zinc-200'
+                          ? 'bg-[#2D241E] text-[#FFFDF9] paper-shadow-sm scale-102'
+                          : 'bg-[#F2ECE1] text-[#6B5E51] hover:bg-[#EAE4D9]'
                       }`}
                     >
-                      <span>{tab.label}</span>
+                      <span className="text-sm">{tab.label}</span>
                       <span
                         className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
-                          isActive ? 'bg-[#FFE600] text-black' : 'bg-zinc-300 text-black'
+                          isActive ? 'bg-[#FEF08A] text-[#2D241E]' : 'bg-[#DCD5C8] text-[#2D241E]'
                         }`}
                       >
                         {tab.count}
@@ -256,14 +252,14 @@ const App = () => {
 
               {/* Priority Filter Dropdown */}
               <div className="flex items-center gap-1.5">
-                <span className="text-xs font-black text-zinc-500">Priority:</span>
+                <span className="text-xs font-bold text-[#6B5E51] font-hand text-sm">Priority:</span>
                 <select
                   value={priorityFilter}
                   onChange={(e) => {
                     setPriorityFilter(e.target.value);
                     playClick();
                   }}
-                  className="bg-zinc-100 border border-black rounded-lg px-2 py-1 text-xs font-black cursor-pointer focus:outline-none"
+                  className="bg-[#F8F4EB] border-2 border-[#2D241E] rounded-lg px-2 py-1 text-xs font-bold text-[#2D241E] cursor-pointer focus:outline-none font-hand text-sm"
                 >
                   <option value="all">All Priorities</option>
                   <option value="high">🌶️ Holy Guacamole</option>
@@ -282,7 +278,7 @@ const App = () => {
                   key={task.id}
                   className={`transition-all duration-300 ${
                     highlightedTaskId === task.id
-                      ? 'ring-4 ring-[#FF007A] scale-[1.02] rounded-xl'
+                      ? 'ring-4 ring-[#EA580C] scale-[1.02] rounded-xl'
                       : ''
                   }`}
                 >
@@ -296,20 +292,21 @@ const App = () => {
                 </div>
               ))
             ) : (
-              /* Funky Humorous Empty State */
-              <div className="bg-white neo-border neo-shadow-lg rounded-2xl p-8 text-center space-y-4">
-                <div className="text-5xl animate-bounce">
-                  {tasks.length === 0 ? '🎉' : '🔍'}
+              /* Paper Themed Empty State */
+              <div className="paper-sheet rounded-2xl p-8 text-center space-y-3 bg-[#FFFDF9] relative">
+                <div className="washi-tape w-24" />
+                <div className="text-5xl">
+                  {tasks.length === 0 ? '📜' : '🔍'}
                 </div>
-                <h3 className="text-xl font-black text-black font-funky">
+                <h3 className="text-2xl font-bold text-[#2D241E] font-hand">
                   {tasks.length === 0
-                    ? 'THE VOID HAS CONSUMED ALL TASKS!'
-                    : 'NO MATCHING CHAOS FOUND'}
+                    ? 'CLEAN DESK, NO STICKIES LEFT!'
+                    : 'NO MATCHING SCRIBBLES FOUND'}
                 </h3>
-                <p className="text-sm font-bold text-zinc-600 max-w-sm mx-auto">
+                <p className="text-sm font-medium text-[#6B5E51] max-w-sm mx-auto font-hand text-base">
                   {tasks.length === 0
-                    ? 'You are completely free! Go take a nap, pet a dog, or invent a new excuse.'
-                    : "Either you're all done or your search query is too wildly specific."}
+                    ? 'You have defeated all sticky notes! Take a glorious coffee break or doodle something fun.'
+                    : 'Try checking your spelling or clearing your search filters.'}
                 </p>
                 {tasks.length === 0 && (
                   <button
@@ -318,10 +315,10 @@ const App = () => {
                       playClick();
                       handleResetPresets();
                     }}
-                    className="neo-btn bg-[#FFE600] px-4 py-2 rounded-xl text-xs font-black uppercase inline-flex items-center gap-2"
+                    className="paper-btn bg-[#FEF08A] px-4 py-2 rounded-xl text-xs font-bold uppercase inline-flex items-center gap-2 font-hand text-sm text-[#2D241E]"
                   >
                     <RefreshCw size={14} />
-                    <span>Bring Back Fun Starter Tasks 🎪</span>
+                    <span>Load Starter Stickies 🎪</span>
                   </button>
                 )}
               </div>
@@ -341,7 +338,7 @@ const App = () => {
         />
       </div>
 
-      {/* Funky Footer */}
+      {/* Funky Footer (kept commented out as requested) */}
       {/* <footer className="mt-14 pb-8 text-center text-xs font-black text-black/75">
         <p className="flex items-center justify-center gap-1">
           Made with ⚡ and lots of procrastination • Ready for Vercel 🚀

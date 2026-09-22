@@ -2,103 +2,151 @@
 
 @layer base {
   body {
-    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: #FFF500;
-    background-image: radial-gradient(#000000 1.2px, transparent 1.2px);
+    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #F3ECE1;
+    /* Realistic graph/grid notebook paper pattern */
+    background-image: 
+      linear-gradient(rgba(55, 42, 30, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(55, 42, 30, 0.07) 1px, transparent 1px);
     background-size: 24px 24px;
+    color: #2D241E;
   }
 
-  h1, h2, h3, .font-funky {
-    font-family: 'Fredoka', cursive, sans-serif;
+  h1, h2, h3, .font-hand {
+    font-family: 'Patrick Hand', cursive, sans-serif;
+  }
+
+  .font-cursive {
+    font-family: 'Caveat', cursive, sans-serif;
   }
 }
 
-/* Neo-brutalist utility classes */
-.neo-border {
-  border: 3px solid #000000;
+/* Paper and Sticky Note Aesthetic Utilities */
+.paper-sheet {
+  background-color: #FFFDF9;
+  border: 2.5px solid #2D241E;
+  box-shadow: 4px 5px 0px #2D241E;
+  position: relative;
 }
 
-.neo-border-thick {
-  border: 4px solid #000000;
+.paper-sheet-lg {
+  background-color: #FFFDF9;
+  border: 3px solid #2D241E;
+  box-shadow: 6px 7px 0px #2D241E;
+  position: relative;
 }
 
-.neo-shadow-sm {
-  box-shadow: 3px 3px 0px #000000;
+.paper-shadow {
+  box-shadow: 4px 5px 0px #2D241E;
 }
 
-.neo-shadow {
-  box-shadow: 5px 5px 0px #000000;
+.paper-shadow-sm {
+  box-shadow: 2.5px 3px 0px #2D241E;
 }
 
-.neo-shadow-lg {
-  box-shadow: 8px 8px 0px #000000;
-}
-
-.neo-shadow-hover:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 7px 7px 0px #000000;
-}
-
-.neo-btn {
-  border: 3px solid #000000;
-  box-shadow: 4px 4px 0px #000000;
-  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+.paper-btn {
+  border: 2.5px solid #2D241E;
+  box-shadow: 3px 4px 0px #2D241E;
+  transition: all 0.12s ease-out;
   cursor: pointer;
   user-select: none;
 }
 
-.neo-btn:hover {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0px #000000;
+.paper-btn:hover {
+  transform: translate(1px, 2px);
+  box-shadow: 2px 2px 0px #2D241E;
 }
 
-.neo-btn:active {
-  transform: translate(4px, 4px);
-  box-shadow: 0px 0px 0px #000000;
+.paper-btn:active {
+  transform: translate(3px, 4px);
+  box-shadow: 0px 0px 0px #2D241E;
 }
 
-/* Funky animations */
-@keyframes wiggle {
-  0%, 100% { transform: rotate(-2deg); }
-  50% { transform: rotate(2deg); }
+/* Washi Tape Strip Effect */
+.washi-tape {
+  position: absolute;
+  height: 22px;
+  background: rgba(254, 240, 138, 0.85);
+  border-left: 2px dashed rgba(45, 36, 30, 0.35);
+  border-right: 2px dashed rgba(45, 36, 30, 0.35);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1deg);
+  z-index: 10;
+  pointer-events: none;
 }
 
-@keyframes pop {
-  0% { transform: scale(0.95); opacity: 0.8; }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); opacity: 1; }
+.washi-tape-pink {
+  background: rgba(251, 207, 232, 0.88);
+  transform: translateX(-50%) rotate(1.5deg);
 }
 
-@keyframes pulse-fire {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.15); filter: drop-shadow(0 0 8px #FF4D4D); }
+.washi-tape-blue {
+  background: rgba(186, 230, 253, 0.88);
+  transform: translateX(-50%) rotate(-2deg);
 }
 
-.animate-wiggle {
-  animation: wiggle 1.2s ease-in-out infinite;
+/* Lined notebook paper texture */
+.notebook-lines {
+  background-color: #FFFDF8;
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 27px,
+    #E8E0D2 27px,
+    #E8E0D2 28px
+  );
+  line-height: 28px;
 }
 
-.animate-pop {
-  animation: pop 0.25s ease-out;
+/* Ink Stamp Badge */
+.rubber-stamp {
+  border: 2px dashed #DC2626;
+  color: #DC2626;
+  font-family: 'Patrick Hand', cursive, sans-serif;
+  letter-spacing: 0.05em;
+  transform: rotate(-3deg);
+  display: inline-block;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
-.animate-fire {
-  animation: pulse-fire 1s ease-in-out infinite;
+/* Spiral notebook binding holes at top */
+.spiral-binder {
+  position: relative;
 }
 
-/* Custom scrollbar for funky aesthetic */
+.spiral-binder::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 24px;
+  right: 24px;
+  height: 8px;
+  background-image: radial-gradient(circle, #2D241E 3px, transparent 3px);
+  background-size: 20px 8px;
+  opacity: 0.35;
+}
+
+/* Red ballpoint scribble line-through for finished tasks */
+.pen-strikethrough {
+  text-decoration: line-through 3px #E11D48;
+  text-decoration-style: wavy;
+}
+
+/* Custom Paper Scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 9px;
 }
 ::-webkit-scrollbar-track {
-  background: #FFE600;
-  border-left: 2px solid #000;
+  background: #EFE8DC;
+  border-left: 2px solid #2D241E;
 }
 ::-webkit-scrollbar-thumb {
-  background: #FF007A;
-  border: 2px solid #000;
+  background: #D5C9B5;
+  border: 2px solid #2D241E;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #00F0FF;
+  background: #C4B59E;
 }
